@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery UI Tabs - Default functionality</title>
+    <style>
+      <!-- Page CSS styles. -->
+      .tab-container {
+          display: flex;
+      }
+      
+      .tab {
+          cursor: pointer;
+          padding: 10px;
+          background-color: #f0f0f0;
+          border: 1px solid #ccc;
+          border-bottom: none;
+          border-radius: 5px 5px 0 0;
+          transition: background-color 0.3s;
+      }
+      
+      .tab.active {
+          background-color: #ccc;
+      }
+      
+      .tab-content {
+          padding: 20px;
+          border: 1px solid #ccc;
+          border-radius: 0 0 5px 5px;
+          background-color: #f9f9f9;
+          margin-top: -1px;
+          transition: opacity 1s;
+      }
+    </style>
+    <script>
+      // Set the background color of the default tab and make its content visible when the page loads using DOMContentLoaded event listener.
+      // "active" class in the HTML markup set its background color to gray (#ccc).
+      document.addEventListener("DOMContentLoaded", function() {
+          // Set background color of default tab
+          var defaultTab = document.getElementById('tab1');
+          defaultTab.classList.add('active');
+          defaultTab.style.backgroundColor = '#ccc';
+      
+          // Set default tab content visible
+          document.getElementById("tabContent1").style.display = "block";
+      });
+      
+      function openTab(tabName) {
+          var i, tabContent, tabLinks;
+          tabContent = document.getElementsByClassName("tab-content");
+          for (i = 0; i < tabContent.length; i++) {
+              tabContent[i].style.display = "none";
+          }
+          tabLinks = document.getElementsByClassName("tab");
+          for (i = 0; i < tabLinks.length; i++) {
+              tabLinks[i].classList.remove("active");
+              tabLinks[i].style.backgroundColor = "#f0f0f0"; // Reset background color
+          }
+          document.getElementById(tabName).classList.add("active");
+          document.getElementById(tabName).style.backgroundColor = "#ccc"; // Set background color
+          document.getElementById("tabContent" + tabName.slice(3)).style.display = "block";
+          setTimeout(() => {
+              // Content fades in 1 seconds. You may change it accordingly.
+              document.getElementById("tabContent" + tabName.slice(3)).style.opacity = "1";
+          }, 10);
+      }
+      
+      // Set default tab by the tad ID
+      openTab('tab1');
+    </script>
+  </head>
+  <body>
+    <div class="tab-container">
+        <div class="tab" id="tab1" onclick="openTab('tab1')">Title of Tab 1</div>
+        <div class="tab" id="tab2" onclick="openTab('tab2')">Title of Tab 2</div>
+    </div>
+    
+    <div class="tab-content" id="tabContent1">
+        Content of Tab 1.
+    </div>
+    <div class="tab-content" id="tabContent2" style="display:none;">
+        Content of Tab 2.
+    </div>
+  </body>
+</html>
